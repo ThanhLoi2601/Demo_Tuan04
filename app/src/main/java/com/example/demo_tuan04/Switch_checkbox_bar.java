@@ -3,6 +3,8 @@ package com.example.demo_tuan04;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
@@ -21,19 +23,26 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.view.Menu;
 
+
 public class Switch_checkbox_bar extends AppCompatActivity {
 
-    Button btnButton;
+    Toolbar toolbar;
+    Button btnMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_switch_checkbox_bar);
-        btnButton = (Button) findViewById(R.id.button);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        btnMenu = (Button) findViewById(R.id.btn_menu);
+        setSupportActionBar(toolbar);
+        TextView textView = (TextView) findViewById(R.id.textView);
+        registerForContextMenu(textView);
         //switch
         Switch sw = (Switch) findViewById(R.id.switch1);
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -117,7 +126,6 @@ public class Switch_checkbox_bar extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Log.d("AAA","Stop");
             }});
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,36 +142,37 @@ public class Switch_checkbox_bar extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.menuLogout){
             Toast.makeText(Switch_checkbox_bar.this,"chọn Logout",Toast.LENGTH_LONG).show();
+            XacNhanDX();
         }
         return super.onOptionsItemSelected(item);
     }
 //    private void ShowPopupMenu(){
-//        PopupMenu popupMenu = new PopupMenu(this,btnButton);
-//        popupMenu.getMenuInflater().inflate(R.menu.menu_setting,popupMenu.getMenu());
+//        PopupMenu popupMenu = new PopupMenu(Switch_checkbox_bar.this,btnMenu);
+//        popupMenu.getMenuInflater().inflate(R.menu.popup_menu,popupMenu.getMenu());
 //        popupMenu.show();
 //    }
-//    //popup menu
-//    private void ShowPopupMenu(){
-//        PopupMenu popupMenu = new PopupMenu(this,btnButton);
-//        popupMenu.getMenuInflater().inflate(R.menu.menu_setting,popupMenu.getMenu());
-//        //bắt sự kiện
-//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                if(item.getItemId() == R.id.menuSetting){
-//                    Toast.makeText(Switch_checkbox_bar.this,"chọn Setting",Toast.LENGTH_LONG).show();
-//                }
-//                if (item.getItemId() == R.id.menuShare){
-//                    Toast.makeText(Switch_checkbox_bar.this,"chọn Share",Toast.LENGTH_LONG).show();
-//                }
-//                if (item.getItemId() == R.id.menuLogout){
-//                    Toast.makeText(Switch_checkbox_bar.this,"chọn Logout",Toast.LENGTH_LONG).show();
-//                }
-//                return false;
-//            }
-//        });
-//        popupMenu.show();
-//    }
+    //popup menu
+    public void ShowPopupMenu(View view){
+        PopupMenu popupMenu = new PopupMenu(this,btnMenu);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_setting,popupMenu.getMenu());
+        //bắt sự kiện
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.menuSetting){
+                    Toast.makeText(Switch_checkbox_bar.this,"chọn Setting",Toast.LENGTH_LONG).show();
+                }
+                if (item.getItemId() == R.id.menuShare){
+                    Toast.makeText(Switch_checkbox_bar.this,"chọn Share",Toast.LENGTH_LONG).show();
+                }
+                if (item.getItemId() == R.id.menuLogout){
+                    Toast.makeText(Switch_checkbox_bar.this,"chọn Logout",Toast.LENGTH_LONG).show();
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
+    }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         getMenuInflater().inflate(R.menu.menu_setting,menu);
@@ -187,14 +196,14 @@ public class Switch_checkbox_bar extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-    private void XacNhanXoa( final int vitri){
+    private void XacNhanDX(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Thông báo");
         alert.setMessage("Bạn có muốn đăng xuất không");
         alert.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(Switch_checkbox_bar.this,"Đã xóa",Toast.LENGTH_LONG).show();
+                Toast.makeText(Switch_checkbox_bar.this,"Đã đăng xuất",Toast.LENGTH_LONG).show();
             }
         });
         alert.setNegativeButton("Không", new DialogInterface.OnClickListener() {

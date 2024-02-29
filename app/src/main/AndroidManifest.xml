@@ -13,11 +13,12 @@
         android:theme="@style/Theme.Demo_Tuan04"
         tools:targetApi="31">
         <activity
-            android:name=".Switch_checkbox_bar"
-            android:exported="false" >
+            android:name=".Menu"
+            android:exported="false">
+
         </activity>
         <activity
-            android:name=".Random_BG"
+            android:name=".Switch_checkbox_bar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,16 +27,24 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Random_BG"
+            android:exported="false">
+
+        </activity>
+        <activity
             android:name=".Images"
             android:exported="false">
+
         </activity>
         <activity
             android:name=".random_EditText"
             android:exported="false">
+
         </activity>
         <activity
             android:name=".MainActivity"
             android:exported="false">
+
         </activity>
     </application>
 
